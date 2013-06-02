@@ -73,7 +73,10 @@
 {
     [super viewDidLoad];
     
-    
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(38.802441, -105.447447);
+    MKCoordinateSpan span = MKCoordinateSpanMake(7.141217, 8);
+    MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
+    [self.mapview setRegion:region animated:YES];
 	
     self.photoClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://wildfire.elasticbeanstalk.com"]];
     [self downloadData];
@@ -188,7 +191,7 @@
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
-    //NSLog(@"\n \n \n \n %f \n %f \n \n %f \n %f", mapView.region.center.latitude, mapView.region.center.longitude, mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta);
+    NSLog(@"\n \n \n \n %f \n %f \n \n %f \n %f", mapView.region.center.latitude, mapView.region.center.longitude, mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta);
 }
 
 @end
