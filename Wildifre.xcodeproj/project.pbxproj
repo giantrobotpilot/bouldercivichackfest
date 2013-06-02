@@ -422,12 +422,14 @@
 		D3238DA9175A8A1C006B5E77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Andrew Christensen (SMSAKC45Y7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Charlie Fish (QJJC458DDB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Charlie Fish (QJJC458DDB)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wildifre/Wildifre-Prefix.pch";
 				INFOPLIST_FILE = "Wildifre/Wildifre-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "630EB83A-4C31-45CD-80B4-64FF4FFF6CA4";
+				PROVISIONING_PROFILE = "74216EAF-C826-45A5-B9A8-E44CE04A9278";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "74216EAF-C826-45A5-B9A8-E44CE04A9278";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -435,12 +437,14 @@
 		D3238DAA175A8A1C006B5E77 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Andrew Christensen (SMSAKC45Y7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Charlie Fish (QJJC458DDB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Charlie Fish (QJJC458DDB)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wildifre/Wildifre-Prefix.pch";
 				INFOPLIST_FILE = "Wildifre/Wildifre-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "630EB83A-4C31-45CD-80B4-64FF4FFF6CA4";
+				PROVISIONING_PROFILE = "74216EAF-C826-45A5-B9A8-E44CE04A9278";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "74216EAF-C826-45A5-B9A8-E44CE04A9278";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
