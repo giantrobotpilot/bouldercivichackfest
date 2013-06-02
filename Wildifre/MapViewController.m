@@ -18,20 +18,19 @@
 
 @implementation MapViewController
 
-- (void)viewDidLoad
+- (void)downloadData
 {
-    [super viewDidLoad];
+    [self.mapview removeAnnotations:self.annotations];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-	
-    self.photoClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://wildfire.elasticbeanstalk.com"]];
     
     NSMutableURLRequest *request = [self.photoClient requestWithMethod:@"GET" path:@"photos" parameters:nil];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSError *error;
         NSArray *results = [NSJSONSerialization JSONObjectWithData:responseObject
                                                            options:0
@@ -57,14 +56,27 @@
                 annotation.title = [dateFormatter stringFromDate:date];	
                 [annotations addObject:annotation];
             }
-            [self.mapview addAnnotations:annotations];
+            self.annotations = [NSArray arrayWithArray:annotations];
+            [self.mapview addAnnotations:self.annotations];
         } else {
             NSLog(@"not valid JSON");
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure");
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [operation start];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    
+	
+    self.photoClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://wildfire.elasticbeanstalk.com"]];
+    [self downloadData];
     
     CLLocationCoordinate2D  points[4];
     
@@ -127,6 +139,10 @@
     pictureinfo.heading = annotation.heading;
     
     [self.navigationController pushViewController:pictureinfo animated:YES];
+}
+
+- (IBAction)refreshPressed:(id)sender {
+    [self downloadData];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
