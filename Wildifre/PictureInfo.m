@@ -7,6 +7,7 @@
 //
 
 #import "PictureInfo.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface PictureInfo ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -20,7 +21,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageURL]]];
+	//self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageURL]]];
+    [self.imageView setImageWithURL:[NSURL URLWithString:self.imageURL]];
     self.headingLabel.text = [NSString stringWithFormat:@"%.1f", self.heading];
 }
 
