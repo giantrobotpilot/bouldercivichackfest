@@ -9,6 +9,7 @@
 #import "CaptureViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "AFNetworking.h"
+#import "UIImage+fixOrientation.h"
 
 #define BAD_LOCATION_COLOR  [UIColor redColor];
 #define GOOD_LOCATION_COLOR [UIColor greenColor];
@@ -84,7 +85,7 @@
     //NSDictionary *metaData = [info valueForKey:UIImagePickerControllerMediaMetadata];
     UIImage *originalImage = [info valueForKey:UIImagePickerControllerOriginalImage];
     NSLog(@"imageSize = %@", NSStringFromCGSize([originalImage size]));
-    [self postImage:originalImage];
+    [self postImage:[originalImage fixOrientation]];
 }
 
 - (void)postImage:(UIImage *)image

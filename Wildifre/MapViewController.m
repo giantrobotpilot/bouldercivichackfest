@@ -21,6 +21,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
 	
     self.photoClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://wildfire.elasticbeanstalk.com"]];
     
@@ -34,6 +38,7 @@
                                                              error:&error];
         if ([NSJSONSerialization isValidJSONObject:results]) {
             NSArray *photos = [results valueForKey:@"photos"];
+            NSLog(@"%@", photos);
             NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[photos count]];
             for (NSDictionary *photo in photos) {
                 ImageAnnotation *annotation = [[ImageAnnotation alloc] init];
@@ -43,8 +48,13 @@
                 annotation.coordinate = CLLocationCoordinate2DMake(lat, lng);
                 annotation.imageURL = [photo valueForKey:@"url"];
                 annotation.heading = heading;
-                annotation.title = @"Photo";
                 
+                double ms = [[photo valueForKey:@"date"] doubleValue];
+                double sec = ms / 1000;
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:sec];
+                NSLog(@"date: %@", date);
+                annotation.date = date;
+                annotation.title = [dateFormatter stringFromDate:date];	
                 [annotations addObject:annotation];
             }
             [self.mapview addAnnotations:annotations];
@@ -62,31 +72,6 @@
     points[1] = CLLocationCoordinate2DMake(41.002371, -102.052066);
     points[2] = CLLocationCoordinate2DMake(36.993076, -102.041981);
     points[3] = CLLocationCoordinate2DMake(36.99892, -109.045267);
-
-    /*
-    ImageAnnotation *annotation = [[ImageAnnotation alloc] init];
-    [annotation setCoordinate:points[0]];
-    [annotation setTitle:@"Point 1"]; //You can set the subtitle too
-    //annotation.image = [UIImage imageWithData:[NSDate dataWithContentsOfURL:[NSURL URLWithString:STRING]]];
-    [self.mapview addAnnotation:annotation];
-    
-    
-    
-    ImageAnnotation *annotation1 = [[ImageAnnotation alloc] init];
-    [annotation1 setCoordinate:points[1]];
-    [annotation1 setTitle:@"Point 2"]; //You can set the subtitle too
-    [self.mapview addAnnotation:annotation1];
-
-    ImageAnnotation *annotation2 = [[ImageAnnotation alloc] init];
-    [annotation2 setCoordinate:points[2]];
-    [annotation2 setTitle:@"Point 3"]; //You can set the subtitle too
-    [self.mapview addAnnotation:annotation2];
-
-    ImageAnnotation *annotation3 = [[ImageAnnotation alloc] init];
-    [annotation3 setCoordinate:points[3]];
-    [annotation3 setTitle:@"Point 4"]; //You can set the subtitle too
-    [self.mapview addAnnotation:annotation3];
-    */
     
     MKPolygon* poly = [MKPolygon polygonWithCoordinates:points count:4];
     poly.title = @"Colorado";

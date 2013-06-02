@@ -12,5 +12,5 @@
 
 @property (nonatomic, retain) NSString *imageURL;
 @property (nonatomic) double heading;
-
+@property (nonatomic, strong) NSDate *date;
 @end
