@@ -9,25 +9,19 @@
 #import "PictureInfo.h"
 
 @interface PictureInfo ()
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *headingLabel;
 
 @end
 
 @implementation PictureInfo
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageURL]]];
+    self.headingLabel.text = [NSString stringWithFormat:@"%.1f", self.heading];
 }
 
 - (void)didReceiveMemoryWarning

@@ -10,7 +10,7 @@
 
 @interface PictureInfo : UIViewController
 
-@property (nonatomic, retain) UIImageView *image;
-
+@property (nonatomic, strong) NSString *imageURL;
+@property (nonatomic, assign) double heading;
 
 @end

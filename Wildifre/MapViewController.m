@@ -137,6 +137,10 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
     PictureInfo *pictureinfo = [self.storyboard instantiateViewControllerWithIdentifier:@"PictureInfo"];
     //image url set here
+    ImageAnnotation *annotation = (ImageAnnotation*)view.annotation;
+    pictureinfo.imageURL = annotation.imageURL;
+    pictureinfo.heading = annotation.heading;
+    
     [self.navigationController pushViewController:pictureinfo animated:YES];
 }
 
@@ -148,9 +152,7 @@
     }
     /*
     MKPinAnnotationView *pinannotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pin"];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     
-    pinannotation.rightCalloutAccessoryView = button;
     pinannotation.canShowCallout = YES;
     return pinannotation;
      */
@@ -178,7 +180,9 @@
     } else {
         annotationView.image = [UIImage imageNamed:@"N.png"];
     }
-    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    annotationView.rightCalloutAccessoryView = button;
+    annotationView.canShowCallout = YES;
     return annotationView;
 }
 
